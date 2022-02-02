@@ -168,6 +168,24 @@ public class CubeManager : MonoBehaviour
             faces[2].printArray();
 
         }
+        else if(Input.GetKey(KeyCode.Y))
+        {
+            rubiksCube.adjustFacePostRotation<char>(0, 1, faces[Right].colorBlocks, faces[Top].colorBlocks, faces[Left].colorBlocks, faces[Bottom].colorBlocks);
+
+        }
+        else if(Input.GetKeyDown(KeyCode.Z))
+        {
+            string g = "";
+            for (int i = 0; i < faceSize; ++i)
+            {
+                for (int a = 0; a < faceSize; ++a)
+                {
+                    g += faces[Right].colorBlocks[i, a] + ",";
+                }
+                g += "\n";
+            }
+            Debug.Log(g);
+        }
         if (currFace != null)
         {
             string g = "";
