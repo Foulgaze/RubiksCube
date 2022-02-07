@@ -29,6 +29,8 @@ public class CubeManager : MonoBehaviour
         initVars();
         createMat();
         createCubes();
+        faces[Front].colorBlocks[0, faceSize - 1] = 'Q';
+
     }
 
     // Update is called once per frame
@@ -122,6 +124,7 @@ public class CubeManager : MonoBehaviour
         {
             currFace = faces[2];
         }
+
         else if (Input.GetKeyDown(KeyCode.G)) // Randomize Cube
         {
             randomizing = randomizeCount;
@@ -168,23 +171,29 @@ public class CubeManager : MonoBehaviour
             faces[2].printArray();
 
         }
-        else if(Input.GetKey(KeyCode.Y))
+        else if(Input.GetKeyDown(KeyCode.Y))
         {
-            rubiksCube.adjustFacePostRotation<char>(0, 1, faces[Right].colorBlocks, faces[Top].colorBlocks, faces[Left].colorBlocks, faces[Bottom].colorBlocks);
+            //rubiksCube.adjustFacePostRotation<char>(0, 2, faces[Right].colorBlocks, faces[Top].colorBlocks, faces[Left].colorBlocks, faces[Bottom].colorBlocks);
+            //rubiksCube.adjustFacePostRotation<char>(1, 2, faces[Front].colorBlocks, faces[Top].colorBlocks, faces[Back].colorBlocks, faces[Bottom].colorBlocks);
+            rubiksCube.adjustFacePostRotation<char>(1, 2, faces[Front].colorBlocks, faces[Top].colorBlocks, faces[Back].colorBlocks, faces[Bottom].colorBlocks);
 
         }
         else if(Input.GetKeyDown(KeyCode.Z))
         {
-            string g = "";
-            for (int i = 0; i < faceSize; ++i)
+            for(int c = 0; c < 6; ++c)
             {
-                for (int a = 0; a < faceSize; ++a)
+                string g = "";
+                for (int i = 0; i < faceSize; ++i)
                 {
-                    g += faces[Right].colorBlocks[i, a] + ",";
+                    for (int a = 0; a < faceSize; ++a)
+                    {
+                        g += faces[c].colorBlocks[i, a] + ",";
+                    }
+                    g += "\n";
                 }
-                g += "\n";
+                Debug.Log(g);
             }
-            Debug.Log(g);
+            
         }
         if (currFace != null)
         {
