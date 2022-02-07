@@ -53,6 +53,10 @@ public class Cube
                 for(int i = 0; i < faceSize; ++i)
                 {
                     tempArr[i] = frontBlocks[arrPosition, i];
+                    frontBlocks[arrPosition, i] = bottomBlocks[arrPosition, i];
+                    bottomBlocks[arrPosition,i] = backBlocks[arrPosition, i];
+                    backBlocks[arrPosition, i] = topBlocks[arrPosition,i];
+                    topBlocks[arrPosition, i] = tempArr[i];
 
                 }
                 break;
