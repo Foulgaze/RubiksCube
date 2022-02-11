@@ -65,6 +65,33 @@ public class Cube
 
     }
 
+    public GameObject createMiddleBlock(int rotationType, int arrPosition, GameObject[,] frontBlocks, GameObject[,] topBlocks, GameObject[,] backBlocks, GameObject[,] bottomBlocks)
+    {
+        GameObject fakeMiddle = new GameObject();
+        switch (rotationType)
+        {
+            default:
+            case 0: // Front/Back Turn Equivalent      
+                fakeMiddle.transform.position = new Vector3((frontBlocks[faceSize/2,arrPosition].transform.position.x + backBlocks[faceSize/2,arrPosition].transform.position.x)/2.0f, backBlocks[faceSize/2,arrPosition].transform.position.y, (frontBlocks[faceSize/2,arrPosition].transform.position.z + backBlocks[faceSize/2,arrPosition].transform.position.z)/2.f );
+                break;
+            case 1: // Left/Right Turn Equivalent
+                fakeMiddle.transform.position = new Vector3((frontBlocks[faceSize / 2, arrPosition].transform.position.x + backBlocks[faceSize / 2, arrPosition].transform.position.x) / 2.0f, backBlocks[faceSize / 2, arrPosition].transform.position.y, (frontBlocks[faceSize / 2, arrPosition].transform.position.z + backBlocks[faceSize / 2, arrPosition].transform.position.z) / 2.f);
+                break;
+            case 2: // Top/bottom turn Equivalent
+                for (int i = 0; i < faceSize; ++i)
+                {
+                    tempArr[i] = frontBlocks[arrPosition, i];
+                    frontBlocks[arrPosition, i] = bottomBlocks[arrPosition, i];
+                    bottomBlocks[arrPosition, i] = backBlocks[arrPosition, i];
+                    backBlocks[arrPosition, i] = topBlocks[arrPosition, i];
+                    topBlocks[arrPosition, i] = tempArr[i];
+
+                }
+                break;
+
+        }
+    }
+
 
 
 
