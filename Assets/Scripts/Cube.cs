@@ -19,10 +19,11 @@ public class Cube
         this.faces = faces;
         this.faceSize = faceSize;
     }
-
-    public void adjustFacePostRotation<T>(int rotationType, int arrPosition, T[,] frontBlocks, T[,] topBlocks, T[,] backBlocks, T[,] bottomBlocks)
+    public void adjustFacePostRotation<T>(int rotationType, int arrPosition, T[,] frontBlocks, T[,] topBlocks, T[,] backBlocks, T[,] bottomBlocks, List<T> returnFaces)
     {
         T[] tempArr = new T[faceSize];
+        int horiCount = 0;
+        int vertCount = 0;
         switch (rotationType)
         {
             default:
@@ -62,35 +63,39 @@ public class Cube
                 break;
             
         }
+        
 
     }
 
-    public GameObject createMiddleBlock(int rotationType, int arrPosition, GameObject[,] frontBlocks, GameObject[,] topBlocks, GameObject[,] backBlocks, GameObject[,] bottomBlocks)
+    public GameObject createMiddleBlock(int rotationType, int arrPosition, GameObject[,] middleBlocks, GameObject[,] positionBlocks )
     {
         GameObject fakeMiddle = new GameObject();
+        Vector3 pos = middleBlocks[faceSize / 2, faceSize / 2].transform.position;
         switch (rotationType)
         {
             default:
-            case 0: // Front/Back Turn Equivalent      
-                fakeMiddle.transform.position = new Vector3((frontBlocks[faceSize/2,arrPosition].transform.position.x + backBlocks[faceSize/2,arrPosition].transform.position.x)/2.0f, backBlocks[faceSize/2,arrPosition].transform.position.y, (frontBlocks[faceSize/2,arrPosition].transform.position.z + backBlocks[faceSize/2,arrPosition].transform.position.z)/2.f );
+            case 0: // Front/Back Turn Equivalent
+                {
+                    pos.x = positionBlocks[0, arrPosition].transform.position.x;
+                }
                 break;
             case 1: // Left/Right Turn Equivalent
-                fakeMiddle.transform.position = new Vector3((frontBlocks[faceSize / 2, arrPosition].transform.position.x + backBlocks[faceSize / 2, arrPosition].transform.position.x) / 2.0f, backBlocks[faceSize / 2, arrPosition].transform.position.y, (frontBlocks[faceSize / 2, arrPosition].transform.position.z + backBlocks[faceSize / 2, arrPosition].transform.position.z) / 2.f);
+                {
+                    pos.z = positionBlocks[0, arrPosition].transform.position.z;
+                }
                 break;
             case 2: // Top/bottom turn Equivalent
-                for (int i = 0; i < faceSize; ++i)
                 {
-                    tempArr[i] = frontBlocks[arrPosition, i];
-                    frontBlocks[arrPosition, i] = bottomBlocks[arrPosition, i];
-                    bottomBlocks[arrPosition, i] = backBlocks[arrPosition, i];
-                    backBlocks[arrPosition, i] = topBlocks[arrPosition, i];
-                    topBlocks[arrPosition, i] = tempArr[i];
-
+                    pos.y = positionBlocks[arrPosition, 0].transform.position.y;
                 }
                 break;
 
         }
+        fakeMiddle.transform.position = pos;
+        return fakeMiddle;
     }
+
+
 
 
 

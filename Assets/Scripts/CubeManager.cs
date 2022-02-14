@@ -175,7 +175,7 @@ public class CubeManager : MonoBehaviour
         {
             //rubiksCube.adjustFacePostRotation<char>(0, 2, faces[Right].colorBlocks, faces[Top].colorBlocks, faces[Left].colorBlocks, faces[Bottom].colorBlocks);
             //rubiksCube.adjustFacePostRotation<char>(1, 2, faces[Front].colorBlocks, faces[Top].colorBlocks, faces[Back].colorBlocks, faces[Bottom].colorBlocks);
-            rubiksCube.adjustFacePostRotation<char>(2, 2, faces[Front].colorBlocks, faces[Left].colorBlocks, faces[Back].colorBlocks, faces[Right].colorBlocks);
+            //rubiksCube.adjustFacePostRotation<char>(2, 2, faces[Front].colorBlocks, faces[Left].colorBlocks, faces[Back].colorBlocks, faces[Right].colorBlocks);
 
         }
         else if(Input.GetKeyDown(KeyCode.Z))
