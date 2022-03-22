@@ -19,11 +19,10 @@ public class Cube
         this.faces = faces;
         this.faceSize = faceSize;
     }
-    public void adjustFacePostRotation<T>(int rotationType, int arrPosition, T[,] frontBlocks, T[,] topBlocks, T[,] backBlocks, T[,] bottomBlocks, List<T> returnFaces)
+    public List<T> adjustFacePostRotation<T>(int rotationType, int arrPosition, T[,] frontBlocks, T[,] topBlocks, T[,] backBlocks, T[,] bottomBlocks, List<T> returnFaces)
     {
         T[] tempArr = new T[faceSize];
-        int horiCount = 0;
-        int vertCount = 0;
+        
         switch (rotationType)
         {
             default:
@@ -36,6 +35,12 @@ public class Cube
                     bottomBlocks[arrPosition,  faceSize-1-i] = backBlocks[faceSize - 1 - i, faceSize-1-arrPosition];
                     backBlocks[faceSize - 1 - i, faceSize-1-arrPosition] = topBlocks[arrPosition, faceSize - 1 - i];
                     topBlocks[arrPosition, faceSize - 1 - i] = tempArr[i];
+
+                    // New face to be turned
+                    returnFaces.Add(backBlocks[faceSize - 1 - i, faceSize - 1 - arrPosition]);
+                    returnFaces.Add(bottomBlocks[arrPosition, faceSize - 1 - i]);
+                    returnFaces.Add(frontBlocks[i, arrPosition]);
+                    returnFaces.Add(topBlocks[arrPosition, faceSize - 1 - i]);
                 }
 
                 break;
@@ -47,6 +52,12 @@ public class Cube
                     bottomBlocks[faceSize - 1 - i, faceSize - 1 - arrPosition] = backBlocks[faceSize - 1 - i, faceSize - 1 - arrPosition];
                     backBlocks[faceSize - 1 - i, faceSize - 1 - arrPosition] = topBlocks[i, arrPosition];
                     topBlocks[i, arrPosition] = tempArr[i];
+
+                    // New face to be turned
+                    returnFaces.Add(backBlocks[faceSize - 1 - i, faceSize - 1 - arrPosition]);
+                    returnFaces.Add(bottomBlocks[faceSize - 1 - i, faceSize - 1 - arrPosition]);
+                    returnFaces.Add(frontBlocks[i, arrPosition]);
+                    returnFaces.Add(topBlocks[i, arrPosition]);
                 }
 
                 break;
@@ -59,10 +70,15 @@ public class Cube
                     backBlocks[arrPosition, i] = topBlocks[arrPosition,i];
                     topBlocks[arrPosition, i] = tempArr[i];
 
+                    // New face to be turned
+                    returnFaces.Add(backBlocks[arrPosition, i]);
+                    returnFaces.Add(bottomBlocks[arrPosition, i]);
+                    returnFaces.Add(frontBlocks[arrPosition, i]);
+                    returnFaces.Add(topBlocks[arrPosition, i]);
                 }
                 break;
-            
         }
+        return returnFaces;
         
 
     }
